@@ -1,19 +1,28 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
+contract SimpleStorage {
+    uint256 myFavoriteNumber;
 
-import {Script} from "forge-std/Script.sol";
-import {Counter} from "../src/Counter.sol";
+    struct Person {
+        uint256 favoriteNumber;
+        string name;
+    }
+    // uint256[] public anArray;
+    Person[] public listOfPeople;
 
-contract CounterScript is Script {
-    Counter public counter;
+    mapping(string => uint256) public nameToFavoriteNumber;
 
-    function setUp() public {}
+    function store(uint256 _favoriteNumber) public {
+        myFavoriteNumber = _favoriteNumber;
+    }
 
-    function run() public {
-        vm.startBroadcast();
+    function retrieve() public view returns (uint256) {
+        return myFavoriteNumber;
+    }
 
-        counter = new Counter();
-
-        vm.stopBroadcast();
+    function addPerson(string memory _name, uint256 _favoriteNumber) public {
+        listOfPeople.push(Person(_favoriteNumber, _name));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
     }
 }
+
