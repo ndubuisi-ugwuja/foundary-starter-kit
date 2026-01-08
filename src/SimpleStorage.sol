@@ -25,5 +25,9 @@ contract SimpleStorage {
         listOfPeople.push(Person(_favoriteNumber, _name));
         nameToFavoriteNumber[_name] = _favoriteNumber;
     }
+
+    function getListOfPeople() public view returns(Person memory) {
+        return listOfPeople[0];
+    }
 }
 
